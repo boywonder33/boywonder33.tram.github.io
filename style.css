@@ -1,0 +1,57 @@
+/* titre */
+#titre {
+  position: absolute;
+  background: black;
+  width: 100%;
+  height: 200px;
+  line-height: 200px;
+  right:0;
+  top: 0;
+  text-align: center;
+  font-size: 170%;
+  color: white;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#vers_ville {
+  position: absolute;
+  background:  #ef8077;
+  width: 100%;
+  height: 220px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  right: 0;
+  color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  font-size: 150%;
+}
+
+#valeur_vers_ville {
+  font-weight: normal;
+}
+
+#vers_eysines {
+  position: absolute;
+  background: #177fe9;
+  width: 100%;
+  height: 200px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  right: 0;
+  color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  font-size: 150%;
+}
+
+#valeur_vers_eysines {
+  font-weight: normal;
+}
+
+/* body */
+body {
+  background-color:  #d7d7d7;
+}

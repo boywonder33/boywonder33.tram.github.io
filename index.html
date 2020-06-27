@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tram</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+
+<!-- haut de la page -->
+<div id="titre">
+  TRAM D - Croix de Seguey
+</div>
+
+<br><br><br><br><br><br><br><br>
+
+<!-- temps tram vers ville -->
+<div id="vers_ville">
+  <br>TRAM VERS VILLE <br>
+  <p id="valeur_vers_ville"></p>
+</div>
+
+<br><br><br><br><br><br><br><br><br><br>
+
+<!-- temps tram vers eysines -->
+<div id="vers_eysines">
+  <br>TRAM VERS EYSINES <br>
+  <p id="valeur_vers_eysines"></p>
+</div>
+
+
+<!-- script pour récupérer les données -->
+<script>
+
+// fonction getJSON
+var getJSON = function(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.responseType = 'json';
+  xhr.onload = function() {
+      var status = xhr.status;
+      if (status == 200) {
+          callback(null, xhr.response);
+      } else {
+          callback(status);
+      }
+  };
+  xhr.send();
+};
+
+
+// la giga fonction qui fait tout
+function requete() {
+
+// on appelle la fonction getJSON pour "vers_ville"
+getJSON('https://ws.infotbm.com/ws/1.0/get-realtime-pass/8323/D',  function(err, data) {
+  if (err != null) {
+      console.error(err);
+  } else {
+      var text = `${data.destinations["7351"][0].waittime_text}`;
+      var destination = ` ${data.destinations["7351"][0].destination_name}`;
+
+      var text2 = `${data.destinations["7351"][1].waittime_text}`;
+      var destination2 = ` ${data.destinations["7351"][1].destination_name}`;
+
+      // j'ai remarqué qu'il y avait une autre destination "3713" qui est associé à bourgogne
+      // il y a aussi "5404" (QUINQUONCES) !
+      // quand ca n'existe pas ca fait crash le site :(
+
+      // var text3 = `${data.destinations["3713"][0].waittime_text}`;
+      // var destination3 = ` ${data.destinations["3713"][0].destination_name}`;
+
+      // var text4 = `${data.destinations["3713"][1].waittime_text}`;
+      // var destination4 = ` ${data.destinations["3713"][1].destination_name}`;
+
+      document.getElementById("valeur_vers_ville").innerHTML = text+destination+"<br>";
+      document.getElementById("valeur_vers_ville").innerHTML += text2+destination2+"<br>";
+      // document.getElementById("valeur_vers_ville").innerHTML += text3+destination3+"<br>";
+      // document.getElementById("valeur_vers_ville").innerHTML += text4+destination4+"<br>";
+  }
+});
+
+// on appelle la fonction getJSON pour "vers_eysines"
+getJSON('https://ws.infotbm.com/ws/1.0/get-realtime-pass/8324/D',  function(err, data) {
+  if (err != null) {
+      console.error(err);
+  } else {
+      var text = `${data.destinations["8358"][0].waittime_text}`
+      var destination = ` ${data.destinations["8358"][0].destination_name}`
+
+      var text2 = `${data.destinations["8358"][1].waittime_text}`
+      var destination2 = ` ${data.destinations["8358"][1].destination_name}`
+
+      // il faut trouver l'autre destination pour cette direction
+
+      document.getElementById("valeur_vers_eysines").innerHTML = text+destination+"<br>";
+      document.getElementById("valeur_vers_eysines").innerHTML += text2+destination2;
+  }
+});
+}
+
+// on lance la fonction requete() puis on la relance toutes les 10sec
+requete();
+setInterval(function() {requete();}, 10*1000);
+</script>
+
+</body>
+</html>
